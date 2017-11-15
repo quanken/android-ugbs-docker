@@ -22,14 +22,6 @@ ENV GRADLE_HOME ${TOOLS_DIR}/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 RUN chmod u+x ${GRADLE_HOME}/bin/*
 
-# Installing CMake from cmake.org
-RUN wget -q https://cmake.org/files/LatestRelease/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-# TODO: cmake checksum
-RUN tar zxf cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-RUN mv cmake-${CMAKE_VERSION}-Linux-x86_64 ${ANDROID_HOME}/cmake
-ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
-RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
-
 # Installing Android sdk/build-tools/images
 ENV ANDROID_TARGET_SDK="android-24,android-25,android-26" \
     ANDROID_BUILD_TOOLS="build-tools-26.0.2" \
@@ -49,6 +41,14 @@ RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all -
 RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-google_play_services && \
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
+
+# Installing CMake from cmake.org
+RUN wget -q https://cmake.org/files/LatestRelease/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
+# TODO: cmake checksum
+RUN tar zxf cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
+RUN mv cmake-${CMAKE_VERSION}-Linux-x86_64 ${ANDROID_HOME}/cmake
+ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
+RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 # Installing Android NDK
 ENV ANDROID_NDK_URL http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
