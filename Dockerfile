@@ -15,7 +15,7 @@ RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 git file b
 # Gradle
 ENV GRADLE_SDK_URL https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
 RUN wget -q ${GRADLE_SDK_URL}  \
-	&& unzip gradle-${GRADLE_VERSION}-bin.zip -d ${TOOLS_DIR}  \
+	&& unzip -q gradle-${GRADLE_VERSION}-bin.zip -d ${TOOLS_DIR}  \
 	&& rm -rf gradle-${GRADLE_VERSION}-bin.zip
 # TODO: gradle checksum
 ENV GRADLE_HOME ${TOOLS_DIR}/gradle-${GRADLE_VERSION}
@@ -30,7 +30,7 @@ ENV ANDROID_TARGET_SDK="android-24,android-25,android-26" \
 ENV ANDROID_HOME ${TOOLS_DIR}/android-sdk-linux
 
 RUN mkdir ${ANDROID_HOME} && wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/tools_r${ANDROID_SDK_TOOLS}-linux.zip && \
-    unzip android-sdk.zip -d ${ANDROID_HOME}
+    unzip -q android-sdk.zip -d ${ANDROID_HOME}
 
 ENV PATH ${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:$PATH
 
@@ -43,17 +43,15 @@ RUN echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all -
     echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
 
 # Installing CMake from cmake.org
-RUN wget -q https://cmake.org/files/LatestRelease/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-# TODO: cmake checksum
-RUN tar zxf cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-RUN mv cmake-${CMAKE_VERSION}-Linux-x86_64 ${ANDROID_HOME}/cmake
+RUN wget -q https://dl.google.com/android/repository/cmake-3.6.4111459-linux-x86_64.zip -O android-cmake.zip
+RUN unzip -q android-cmake.zip -d ${ANDROID_HOME}/cmake
 ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
 RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 # Installing Android NDK
 ENV ANDROID_NDK_URL http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip  \
-  && unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d ${TOOLS_DIR}  \
+  && unzip -q android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip -d ${TOOLS_DIR}  \
   && rm -rf android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 ENV ANDROID_NDK_HOME ${TOOLS_DIR}/android-ndk-${ANDROID_NDK_VERSION}
 ENV PATH ${ANDROID_NDK_HOME}:$PATH
