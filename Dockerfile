@@ -60,5 +60,5 @@ ENV PATH ${ANDROID_NDK_HOME}:$PATH
 RUN chmod u+x ${ANDROID_NDK_HOME}/ -R
 
 # Fix ConstraintLayout for Android 1.0.1 License Agreements
-RUN mkdir ${ANDROID_HOME}/licenses && echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> ${ANDROID_HOME}/licenses/android-sdk-license
-RUN echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ${ANDROID_HOME}/licenses/android-sdk-license
+RUN mkdir ${ANDROID_HOME}/licenses && echo "8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e" >> ${ANDROID_HOME}/licenses/android-sdk-license
+RUN echo "3046d46e22f5119de7c4e1b156e5750820085e09\n7c928e048b455a44b323aba54342415d0429c542" >> ${ANDROID_HOME}/licenses/android-sdk-preview-license
