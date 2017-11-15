@@ -26,9 +26,9 @@ RUN chmod u+x ${GRADLE_HOME}/bin/*
 RUN wget -q https://cmake.org/files/LatestRelease/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
 # TODO: cmake checksum
 RUN tar zxf cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-RUN mv cmake-${CMAKE_VERSION}-Linux-x86_64 ${TOOLS_DIR}/cmake
-ENV PATH ${PATH}:${TOOLS_DIR}/cmake/bin
-RUN chmod u+x ${TOOLS_DIR}/cmake/bin/ -R
+RUN mv cmake-${CMAKE_VERSION}-Linux-x86_64 ${ANDROID_HOME}/cmake
+ENV PATH ${PATH}:${ANDROID_HOME}/cmake/bin
+RUN chmod u+x ${ANDROID_HOME}/cmake/bin/ -R
 
 # Installing Android sdk/build-tools/images
 ENV ANDROID_TARGET_SDK="android-24,android-25,android-26" \
@@ -61,3 +61,4 @@ RUN chmod u+x ${ANDROID_NDK_HOME}/ -R
 
 # Fix ConstraintLayout for Android 1.0.1 License Agreements
 RUN mkdir ${ANDROID_HOME}/licenses && echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> ${ANDROID_HOME}/licenses/android-sdk-license
+RUN echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ${ANDROID_HOME}/licenses/android-sdk-license
