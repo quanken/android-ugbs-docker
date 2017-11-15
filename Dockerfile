@@ -58,3 +58,6 @@ RUN curl -L "${ANDROID_NDK_URL}" -o android-ndk-${ANDROID_NDK_VERSION}-linux-x86
 ENV ANDROID_NDK_HOME ${TOOLS_DIR}/android-ndk-${ANDROID_NDK_VERSION}
 ENV PATH ${ANDROID_NDK_HOME}:$PATH
 RUN chmod u+x ${ANDROID_NDK_HOME}/ -R
+
+# Fix ConstraintLayout for Android 1.0.1 License Agreements
+RUN mkdir ${ANDROID_HOME}/licenses && echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> ${ANDROID_HOME}/licenses/android-sdk-license
