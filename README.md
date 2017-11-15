@@ -32,5 +32,5 @@ or run the whole raw script in the `compile.sh`
 
 ```
 # here `gradle build` is the build command
-$ docker run --tty --interactive --volume=$(pwd):/opt/workspace --user `id -F` --workdir=/opt/workspace --rm quanken/android-ugbs-docker /bin/sh -c "gradle build"
+$ docker run --tty --interactive --volume=$(pwd):/opt/workspace --user `id -u` --workdir=/opt/workspace --rm quanken/android-ugbs-docker /bin/sh -c "gradle build"
 ```
